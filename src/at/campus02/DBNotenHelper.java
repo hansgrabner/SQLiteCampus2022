@@ -82,7 +82,7 @@ public class DBNotenHelper {
 
             Statement teilInsStmt = conn.createStatement();
 
-            teilInsStmt.executeUpdate(insertTeilnehmerIn);
+            teilInsStmt.executeUpdate(insertTeilnehmerIn); //bei DML-Statements (INSERT; UPDATE, DELETE) --> executeUpdate
 
             System.out.println("TeilnehmerIn inserted");
 
@@ -112,6 +112,23 @@ public class DBNotenHelper {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public int deleteTeilnehmerIn(String dbName, int teilINr){
+        String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
+        int rowCount=0;
+        try (Connection conn = DriverManager.getConnection(url)) {
+
+            String teilDel="DELETE FROM TeilnehmerInnen WHERE TeilInNr=" + teilINr;
+            //DELETE TeilnehmerInnen WHERE TeilInNr=7
+            Statement teilDelStmt = conn.createStatement();
+            rowCount= teilDelStmt.executeUpdate(teilDel);
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return rowCount;
     }
 
 

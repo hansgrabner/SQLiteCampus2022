@@ -23,8 +23,16 @@ public class Main {
         //myHelper.createTableTeilnehmerInnen("MeineNoten.db"); // würde zu Fehler bei meherfacher Ausführung führen
        // myHelper.createTableNoten("MeineNoten.db");
        // myHelper.insertTeilnehmerIn("MeineNoten.db");
-        myHelper.updateTeilnehmerIn("MeineNoten.db");
+       // myHelper.updateTeilnehmerIn("MeineNoten.db");
        // myHelper.updateTeilnehmerIn("MeineNoten.db",7,"Hans","Grabner",120);
+
+        int affectedRows = myHelper.deleteTeilnehmerIn("MeineNoten.db",1);
+
+        if (affectedRows==0){
+            System.out.println("TeilInNr wurde nicht gefunden");
+        } else {
+            System.out.println("TeilnehmerIn wurde gelöscht");
+        }
     }
 
         /*
