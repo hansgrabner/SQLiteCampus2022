@@ -22,7 +22,9 @@ public class Main {
         //myHelper.createDB("MeineNoten.db");
         //myHelper.createTableTeilnehmerInnen("MeineNoten.db"); // würde zu Fehler bei meherfacher Ausführung führen
        // myHelper.createTableNoten("MeineNoten.db");
-        myHelper.insertTeilnehmerIn("MeineNoten.db");
+       // myHelper.insertTeilnehmerIn("MeineNoten.db");
+        myHelper.updateTeilnehmerIn("MeineNoten.db");
+       // myHelper.updateTeilnehmerIn("MeineNoten.db",7,"Hans","Grabner",120);
     }
 
         /*

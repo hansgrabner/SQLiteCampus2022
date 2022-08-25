@@ -93,5 +93,26 @@ public class DBNotenHelper {
         }
     }
 
+    public void updateTeilnehmerIn(String dbName){
+        String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
+        try (Connection conn = DriverManager.getConnection(url)) {
+            System.out.println(dbName + " succesfully created or connected");
+
+            String teilUpd="UPDATE TeilnehmerInnen SET Vorname='Karolina' WHERE Vorname='Karloina' AND TeilInNr=1  ";
+
+
+            Statement teilUpdStmt = conn.createStatement();
+
+            teilUpdStmt.executeUpdate(teilUpd);
+
+            System.out.println("TeilnehmerIn inserted");
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
 }
