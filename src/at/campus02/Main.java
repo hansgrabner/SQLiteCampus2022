@@ -18,10 +18,10 @@ public class Main {
         //shouldThrowDirectoryNotFound("Egal.db");
        // shouldCreateADatabaseAndThrowSQLExceptionTableStatementIncorrect("Test1.db");
         //shouldCreateADatabaseAndATable("DonnerstagV5.db");
-        DBHelper myHelper =new DBHelper();
-        myHelper.createDB("MeineNoten.db");
-        myHelper.createTableTeilnehmerInnen("MeineNoten.db");
-
+        DBNotenHelper myHelper =new DBNotenHelper();
+        //myHelper.createDB("MeineNoten.db");
+        //myHelper.createTableTeilnehmerInnen("MeineNoten.db"); // würde zu Fehler bei meherfacher Ausführung führen
+        myHelper.createTableNoten("MeineNoten.db");
     }
 
         /*
