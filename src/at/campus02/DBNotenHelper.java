@@ -193,5 +193,13 @@ public class DBNotenHelper {
         return rowsAffected;
     }
 
+    //Aufgaben
+    //Annahme Tabelle Note existiert bereits
+    //1. insertNoten(teilInNr, fach, note)
+    //2. updateNote(notenId, neuesFach, neueNote) ---> Ausgabe - Datensatz wurde geändert oder NICHT gefunden   7, 'DBP mit Java', 1
+    //updateNote(7, 'DBP mit Java', 1)
+    //2. deleteNote(notenId) ---> Note wurde gelöscht oder wurde nicht gefunden
+    //Zeitabschätzung? - gemeinsamer Treffpunkt 14:30 Uhr -
+
 
 }
