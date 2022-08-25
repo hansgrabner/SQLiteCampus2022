@@ -36,6 +36,8 @@ public class DBHelper {
 
             System.out.println("Table TeilnehmerInnen succesfully created");
 
+
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
