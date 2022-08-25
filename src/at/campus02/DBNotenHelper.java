@@ -7,6 +7,9 @@ import java.sql.Statement;
 
 public class DBNotenHelper {
 
+    private String _dbName;
+
+
     public void createDB(String dbName){
         String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
         try (Connection conn = DriverManager.getConnection(url)) {
@@ -61,6 +64,27 @@ public class DBNotenHelper {
             ddlCreateNotenStmt.execute(ddlToCreateNoten);
 
             System.out.println("Table Noten succesfully created");
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void insertTeilnehmerIn(String dbName){
+        String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
+        try (Connection conn = DriverManager.getConnection(url)) {
+            System.out.println(dbName + " succesfully created or connected");
+
+            String insertTeilnehmerIn="INSERT INTO TeilnehmerInnen(Vorname, Nachname, Bonuspunkte) ";
+            insertTeilnehmerIn += " VALUES('Karloina','Wasalska',120)";
+
+            Statement teilInsStmt = conn.createStatement();
+
+            teilInsStmt.executeUpdate(insertTeilnehmerIn);
+
+            System.out.println("TeilnehmerIn inserted");
 
 
 

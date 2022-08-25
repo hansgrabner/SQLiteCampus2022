@@ -21,7 +21,8 @@ public class Main {
         DBNotenHelper myHelper =new DBNotenHelper();
         //myHelper.createDB("MeineNoten.db");
         //myHelper.createTableTeilnehmerInnen("MeineNoten.db"); // würde zu Fehler bei meherfacher Ausführung führen
-        myHelper.createTableNoten("MeineNoten.db");
+       // myHelper.createTableNoten("MeineNoten.db");
+        myHelper.insertTeilnehmerIn("MeineNoten.db");
     }
 
         /*
