@@ -16,8 +16,11 @@ public class Main {
         //Init - DBHelper
         //shouldThrowNoDriverNotFound("Test.db");
         //shouldThrowDirectoryNotFound("Egal.db");
-        shouldCreateADatabaseAndThrowSQLExceptionTableStatementIncorrect("Test1.db");
+       // shouldCreateADatabaseAndThrowSQLExceptionTableStatementIncorrect("Test1.db");
         //shouldCreateADatabaseAndATable("DonnerstagV5.db");
+        DBHelper myHelper =new DBHelper();
+        myHelper.createDB("MeineNoten.db");
+        myHelper.createTableTeilnehmerInnen("MeineNoten.db");
 
     }
 
