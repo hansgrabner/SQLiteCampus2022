@@ -9,11 +9,67 @@ public class Main {
 
     public static void main(String[] args) {
 	    System.out.println("Good Morning Campus2");
-       createGameTable("MyDonnerstag.db");
+      // createGameTable("MyDonnerstag.db");
         //DBHelper myHelper =new DBHelper();
         //myHelper.createDB("V1.db");
        // myHelper.createKundenTable("V1.db");
         //Init - DBHelper
+        //shouldThrowNoDriverNotFound("Test.db");
+        //shouldThrowDirectoryNotFound("Egal.db");
+        shouldCreateADatabaseAndThrowSQLExceptionTableStatementIncorrect("Test1.db");
+        //shouldCreateADatabaseAndATable("DonnerstagV5.db");
+
+    }
+
+        /*
+        Auflockerungs-Übung - Simulieren Sie folgende Fehler - Debug und Doku:
+    -- no suitable Driver found
+    -- Directory for Database not found
+    -- Syntax Error in SQL-Statement
+    --Tabelle zum Verwalten von "tagesaktuellen Menüs erzeugen" - "CREAtE TABLE Menue(MenueId int, Bezeichnung varchar(20))"
+                --"prüfen" und SQLite Studio neue Menüs hinzufügen
+     */
+
+    public  static void shouldThrowNoDriverNotFound(String fileName ) {
+        String url = "jdbc:sqliteDummy:C:\\LVs\\DBP2022\\db\\" +fileName;
+        try (Connection conn = DriverManager.getConnection(url)) {
+            Statement stmt = conn.createStatement();
+            boolean warErfolgreich =  stmt.execute("CREAtE TABLE Menue(MenueId int, Bezeichnung varchar(20))");
+        } catch (SQLException e) {
+            //No sutiable driver found
+            //1. Grund: Driver (richtiges JAR wurde nicht gefunden oder nicht referenziert -- c:\meineDriver\sqlitev17.jar
+            //2. Grund: falschen Driver angegeben --- url="jdbc:einDummy:c:\
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public  static void shouldThrowDirectoryNotFound(String fileName ) {
+        String url = "jdbc:sqlite:C:\\xyzDirDoesNotExist\\DBP2022\\db\\" +fileName;
+        try (Connection conn = DriverManager.getConnection(url)) {
+            Statement stmt = conn.createStatement();
+            boolean warErfolgreich =  stmt.execute("CREAtE TABLE Menue(MenueId int, Bezeichnung varchar(20))");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public  static void shouldCreateADatabaseAndThrowSQLExceptionTableStatementIncorrect(String fileName ) {
+        String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +fileName;
+        try (Connection conn = DriverManager.getConnection(url)) { //Connects or creates a Database
+            Statement stmt = conn.createStatement();
+            boolean warErfolgreich =  stmt.execute("CREAtE TABLE  Menue(MenueId int17 : Bezeichnung varchar(20))");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public  static void shouldCreateADatabaseAndATable(String fileName ) {
+        String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +fileName;
+        try (Connection conn = DriverManager.getConnection(url)) { //Connects or creates a Database
+            Statement stmt = conn.createStatement();
+            boolean warErfolgreich =  stmt.execute("CREAtE TABLE Menue(MenueId int, Bezeichnung varchar(20))");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public  static void createGameTable(String fileName ) {
