@@ -131,5 +131,67 @@ public class DBNotenHelper {
         return rowCount;
     }
 
+    public void insertTeilnehmerInMitVornameNachnameUndBonuspunkten(
+                String dbName,
+                String vorname,
+                String nachname,
+                int bonuspunkte){
+        String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
+        try (Connection conn = DriverManager.getConnection(url)) {
+            System.out.println(dbName + " succesfully created or connected");
+
+            //insertTeilnehmerIn += " VALUES('Karloina','Wasalska',120)";
+            String insertTeilnehmerIn="INSERT INTO TeilnehmerInnen(Vorname, Nachname, Bonuspunkte) ";
+            insertTeilnehmerIn += " VALUES(";
+            insertTeilnehmerIn += " '";
+            insertTeilnehmerIn += vorname;
+            insertTeilnehmerIn += "',";
+            insertTeilnehmerIn += "'" + nachname + "', " + bonuspunkte + ")";
+
+            Statement teilInsStmt = conn.createStatement();
+
+            teilInsStmt.executeUpdate(insertTeilnehmerIn); //bei DML-Statements (INSERT; UPDATE, DELETE) --> executeUpdate
+
+            System.out.println("TeilnehmerIn inserted");
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public int updateTeilnehmerInMitVornameNachnameUndBonuspunkten(
+            String dbName,
+            int teilInNr,
+            String neuerVorname,
+            String neuerNachname,
+            int neueBonuspunkte){
+        String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
+
+        int rowsAffected=0;
+        try (Connection conn = DriverManager.getConnection(url)) {
+            //Update TeilnehmerInnen SET Vorname=neuerVorname, Nachname=neuerNachname, Bonuspunkte=neueBonuspunkte WHERE TeilInNr=teilInNr
+
+            String updString = "UPDATE TeilnehmerInnen SET ";
+            updString += " Vorname='" + neuerVorname + "', ";
+            updString += " Nachname='" + neuerNachname + "', ";
+            updString += " bonuspunkte=" + neueBonuspunkte + " ";
+            updString += " WHERE TeilInNr=" + teilInNr;
+
+
+
+            Statement teilUpdStmt = conn.createStatement();
+
+            rowsAffected= teilUpdStmt.executeUpdate(updString); //bei DML-Statements (INSERT; UPDATE, DELETE) --> executeUpdate
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return rowsAffected;
+    }
+
 
 }

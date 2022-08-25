@@ -33,6 +33,15 @@ public class Main {
         } else {
             System.out.println("TeilnehmerIn wurde gelöscht");
         }
+    //    myHelper.insertTeilnehmerInMitVornameNachnameUndBonuspunkten
+       //         ("MeineNoten.db","Hans","Grabner",70);
+        affectedRows = myHelper.updateTeilnehmerInMitVornameNachnameUndBonuspunkten("MeineNoten.db",2,"Johann","Grabner",220);
+
+        if (affectedRows==0){
+            System.out.println("TeilInNr wurde nicht gefunden");
+        } else {
+            System.out.println("TeilnehmerIn wurde geändert");
+        }
     }
 
         /*
