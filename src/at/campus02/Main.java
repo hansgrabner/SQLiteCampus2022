@@ -26,6 +26,7 @@ public class Main {
        // myHelper.updateTeilnehmerIn("MeineNoten.db");
        // myHelper.updateTeilnehmerIn("MeineNoten.db",7,"Hans","Grabner",120);
 
+        /*
         int affectedRows = myHelper.deleteTeilnehmerIn("MeineNoten.db",1);
 
         if (affectedRows==0){
@@ -42,6 +43,24 @@ public class Main {
         } else {
             System.out.println("TeilnehmerIn wurde geändert");
         }
+        */
+         MyNotenOnlyDBHelper notenOnlyDBHelper =new MyNotenOnlyDBHelper();
+        // notenOnlyDBHelper.insertNoten("MeineNoten.db",2,"Web Design",3);
+        int rowsAffected = notenOnlyDBHelper.updateNoten("MeineNoten.db",1,"Web Design",2);
+
+        if (rowsAffected==0){
+            System.out.println("Eintrag nicht gefunden");
+        } else {
+            System.out.println("note wurde geändert");
+        }
+        rowsAffected = notenOnlyDBHelper.deleteNote("MeineNoten.db",1);
+
+        if (rowsAffected==0){
+            System.out.println("Eintrag nicht gefunden");
+        } else {
+            System.out.println("note wurde gelöscht");
+        }
+
     }
 
         /*
