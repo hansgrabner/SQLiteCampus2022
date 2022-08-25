@@ -9,7 +9,10 @@ public class Main {
 
     public static void main(String[] args) {
 	    System.out.println("Good Morning Campus2");
-        createGameTable("MyGameDB.db");
+       createGameTable("MyDonnerstag.db");
+        //DBHelper myHelper =new DBHelper();
+        //myHelper.createDB("V1.db");
+       // myHelper.createKundenTable("V1.db");
         //Init - DBHelper
     }
 
@@ -61,14 +64,25 @@ public class Main {
                 + "	MaxLevel INTEGER \n"
                 + ");";
         //1. Connection aufbauen -- Driver muss vorhanden sein - Project Structure - Modules - Dependeny - sqllite-jdbc-3.36.0.1.jar (Moodle)
-        try (Connection conn = DriverManager.getConnection(url)){
+        try (Connection conn = DriverManager.getConnection(url)) {
              //2 Statement über die Connection holen - createStatement
             Statement stmt = conn.createStatement();
             //3 Statement abschicken --- execute
-            stmt.execute(ddlStatementToCreateATable);
+            boolean warErfolgreich =  stmt.execute("CREAtE TABLE Menue(MenueId int, Bezeichnung varchar(20))");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        /*
+        Auflockerungs-Übung - Simulieren Sie folgende Fehler - Debug und Doku:
+        -- no suitable Driver found
+        -- Directory for Database not found
+        -- Syntax Error in SQL-Statement
+        --Tabelle zum Verwalten von "tagesaktuellen Menüs erzeugen" - "CREAtE TABLE Menue(MenueId int, Bezeichnung varchar(20))"
+        --"prüfen" und SQLite Studio neue Menüs hinzufügen
+         */
+
+        //finally conn.close();
+        //connection
     }
 }
