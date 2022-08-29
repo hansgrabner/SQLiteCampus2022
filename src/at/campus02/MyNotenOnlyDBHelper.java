@@ -207,6 +207,31 @@ public class MyNotenOnlyDBHelper {
 
     }
 
+    String dbConnectionString  = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\MeineNoten.db";
+
+    public int updateTeilnehmerIn(TeilnehmerIn teilnehmerIn){
+        int rowCount=0;
+        try (Connection conn = DriverManager.getConnection(dbConnectionString)) {
+
+            String updateTeilnehmerIn = "UPDATE TeilnehmerInnen SET ";
+            updateTeilnehmerIn += "Vorname=?, Nachname=?, Bonuspunkte=? WHERE TeilInNr=?";
+
+            PreparedStatement updStmt =  conn.prepareStatement(updateTeilnehmerIn);
+            updStmt.setString(1,teilnehmerIn.getVorname());
+            updStmt.setString(2,teilnehmerIn.getNachname());
+            updStmt.setDouble(3,teilnehmerIn.getBonuspunkte());
+            updStmt.setInt(4,teilnehmerIn.getTeilInNr());
+
+            rowCount = updStmt.executeUpdate();
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return  rowCount;
+    }
+
 
     public int updateNoten(String dbName, int notenId, String geaendertesFach,
             int geaenderdeNote){
@@ -263,4 +288,33 @@ public class MyNotenOnlyDBHelper {
 
     }
 
+    public TeilnehmerIn getTeilnehmerIn(int teilInNr) {
+        TeilnehmerIn tGefunden =new TeilnehmerIn();
+
+        try (Connection conn = DriverManager.getConnection(dbConnectionString)) {
+            //SELECT * FROM TeilnehmerInnen WHERE Bonsupunkte >? OR (Vorname = ? AND TeilInNr < ?
+            String selTeilnehmerIn = "SELECT Vorname, Nachname, Bonuspunkte FROM TeilnehmerInnen WHERE TeilInNr=?";
+            PreparedStatement pSelect = conn.prepareStatement(selTeilnehmerIn);
+            pSelect.setInt(1,teilInNr);;
+            ResultSet rs=  pSelect.executeQuery();
+
+            if (rs.next()){
+                //Es gibt eine Zeile - eine Teilnehmerin
+                tGefunden.setTeilInNr(teilInNr);
+                tGefunden.setVorname(rs.getString("Vorname"));
+                tGefunden.setNachname(rs.getString("Nachname"));
+                tGefunden.setBonuspunkte(rs.getDouble("Bonuspunkte"));
+            } else {
+                //kein TN Gefunden
+                tGefunden.setVorname("nicht vorhanden");
+            }
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return  tGefunden;
+    }
 }

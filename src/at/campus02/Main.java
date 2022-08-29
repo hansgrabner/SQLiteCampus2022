@@ -21,12 +21,33 @@ public class Main {
         DBNotenHelper myHelper =new DBNotenHelper();
 
         MyNotenOnlyDBHelper notenHelper=new MyNotenOnlyDBHelper();
+
+
+        TeilnehmerIn teilnehmerIn =new TeilnehmerIn(6,"Elisabeth","Unger",200);
+        notenHelper.updateTeilnehmerIn(teilnehmerIn);
+
+        TeilnehmerIn teilnehmerIn3 =new TeilnehmerIn(3,"Karolina","Wasalska",250);
+        notenHelper.updateTeilnehmerIn(teilnehmerIn3);
+
+        TeilnehmerIn t5 = notenHelper.getTeilnehmerIn(5);
+        System.out.println(t5);
+        t5.setBonuspunkte(30);
+        System.out.println(t5);
+        notenHelper.updateTeilnehmerIn(t5);
+
+
+
+
+
+        TeilnehmerIn suche = notenHelper.getTeilnehmerIn(6);
+
+
        // notenHelper.createTableNoten("MeineNoten.db");
         //notenHelper.insertNoten("MeineNoten.db",3,"DBP",3);
         //notenHelper.deleteTeilnehmerIn("MeineNoten.db",3);
        // notenHelper.selectTeilnehmerInnen("MeineNoten.db");
        // notenHelper.printAllNoten("MeineNoten.db");
-        notenHelper.insertNotenPrepared("MeineNoten.db",3,"Web",1);
+      //  notenHelper.insertNotenPrepared("MeineNoten.db",3,"Web",1);
         //myHelper.createDB("MeineNoten.db");
         //myHelper.createTableTeilnehmerInnen("MeineNoten.db"); // würde zu Fehler bei meherfacher Ausführung führen
        // myHelper.createTableNoten("MeineNoten.db");
