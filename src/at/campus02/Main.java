@@ -19,6 +19,9 @@ public class Main {
        // shouldCreateADatabaseAndThrowSQLExceptionTableStatementIncorrect("Test1.db");
         //shouldCreateADatabaseAndATable("DonnerstagV5.db");
         DBNotenHelper myHelper =new DBNotenHelper();
+
+        MyNotenOnlyDBHelper notenHelper=new MyNotenOnlyDBHelper();
+        notenHelper.insertNoten("MeineNoten.db",3,"DBP",3);
         //myHelper.createDB("MeineNoten.db");
         //myHelper.createTableTeilnehmerInnen("MeineNoten.db"); // würde zu Fehler bei meherfacher Ausführung führen
        // myHelper.createTableNoten("MeineNoten.db");

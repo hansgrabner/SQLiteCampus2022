@@ -16,6 +16,9 @@ public class MyNotenOnlyDBHelper {
                     "    TeilInNr int, -- Foreign Key Constrain wird nachträglich hinzugefügt\n" +
                     "    Fach varchar(50),\n" +
                     "    Note int\n" +
+                    " FOREIGN KEY ( " +
+                    " TeilInNr  ) "+
+            " REFERENCES TeilnehmerInnen (TeilInNr)  ON UPDATE NO ACTION" +
                     ")";
 
             Statement ddlCreateNotenStmt = conn.createStatement();
@@ -33,6 +36,9 @@ public class MyNotenOnlyDBHelper {
             int note){
         String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
         try (Connection conn = DriverManager.getConnection(url)) {
+
+
+            conn.createStatement().execute("PRAGMA foreign_keys = ON");
 
             String insertNoten="INSERT INTO Noten(TeilInNr, Fach, Note) ";
             insertNoten += " VALUES(" + teilNr + ", '" + fach + "', " +note + ")";
@@ -74,6 +80,8 @@ public class MyNotenOnlyDBHelper {
         int rowCount=0;
         try (Connection conn = DriverManager.getConnection(url)) {
 
+            //DELETE FROM NOtEN WHERE NotenId=?
+
             String notenDelete= "DELETE FROM Noten ";
             notenDelete += " WHERE NotenID="+notenId;
             Statement notenDelStmt = conn.createStatement();
@@ -84,6 +92,20 @@ public class MyNotenOnlyDBHelper {
             System.out.println(e.getMessage());
         }
         return  rowCount;
+    }
+
+    public void selectAllteoten(String dbName, int teilNr){
+        String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
+
+        try (Connection conn = DriverManager.getConnection(url)) {
+
+            String selectAlleNoten= "SELECT * FROM NOTEN WHERE TeilInNr="+teilNr;
+            Statement notenSelectStmt = conn.createStatement();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 }
