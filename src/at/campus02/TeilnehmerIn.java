@@ -1,11 +1,15 @@
 package at.campus02;
 
+import java.util.ArrayList;
+
 public class TeilnehmerIn {
     private int TeilInNr;
     private String Vorname;
     private String Nachname;
 
     private double Bonuspunkte;
+
+    private ArrayList<Noten> noten;
 
     public TeilnehmerIn(int teilInNr, String vorname, String nachname, double bonuspunkte) {
         TeilInNr = teilInNr;

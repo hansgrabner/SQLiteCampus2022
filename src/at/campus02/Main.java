@@ -50,6 +50,10 @@ public class Main {
 
         System.out.println("Mehr als 100 Bonuspunkte: " + notenHelper.getAlleTeilnehmerInnenMitFilter(100));
 
+        TeilnehmerIn t4=notenHelper.getTeilnehmerIn(4);
+        System.out.println("\n" + t4);
+        System.out.println(notenHelper.getNotenFuerTN(4));
+
 
        // notenHelper.createTableNoten("MeineNoten.db");
         //notenHelper.insertNoten("MeineNoten.db",3,"DBP",3);

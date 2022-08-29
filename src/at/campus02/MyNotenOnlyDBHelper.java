@@ -395,4 +395,35 @@ public class MyNotenOnlyDBHelper {
         return liste;
 
     }
+
+    public ArrayList<Noten> getNotenFuerTN(int teilInNr) {
+        ArrayList<Noten> noten =new ArrayList<Noten>();
+        try (Connection conn = DriverManager.getConnection(dbConnectionString)) {
+
+            String selectNoten = "SELECT NotenId, Fach, Note fROm Noten WHERE teilinNr = ?";
+
+            PreparedStatement pSelect = conn.prepareStatement(selectNoten);
+            pSelect.setInt(1,teilInNr);
+
+            ResultSet rs = pSelect.executeQuery();
+
+            while (rs.next()) {
+                Noten n=new Noten();
+                n.setNotenId(rs.getInt("NotenId"));
+                n.setTeilInNr(teilInNr);
+                n.setFach(rs.getString("Fach"));
+                n.setNote(rs.getInt("Note"));
+                noten.add(n);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return noten;
+
+    }
+
+    //b. alle Noten von einer TeilnehmerIn  --- printNotenFuerTeilInNr(3) PreparedStatement, bei keine Noten - es gibt keine Noten
+    //ArrayList<Note> getAlleNotenFuerTN(4)
+    //1. neue Klasse Noten
 }
