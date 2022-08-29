@@ -15,7 +15,7 @@ public class MyNotenOnlyDBHelper {
                     "    NotenId INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "    TeilInNr int, -- Foreign Key Constrain wird nachträglich hinzugefügt\n" +
                     "    Fach varchar(50),\n" +
-                    "    Note int\n" +
+                    "    Note int,\n" +
                     " FOREIGN KEY ( " +
                     " TeilInNr  ) "+
             " REFERENCES TeilnehmerInnen (TeilInNr)  ON UPDATE NO ACTION" +
@@ -38,6 +38,7 @@ public class MyNotenOnlyDBHelper {
         try (Connection conn = DriverManager.getConnection(url)) {
 
 
+            //BEI DML
             conn.createStatement().execute("PRAGMA foreign_keys = ON");
 
             String insertNoten="INSERT INTO Noten(TeilInNr, Fach, Note) ";
@@ -61,6 +62,9 @@ public class MyNotenOnlyDBHelper {
         String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
         int rowCount=0;
         try (Connection conn = DriverManager.getConnection(url)) {
+
+            //TeilInNR kann nicht geändert werden, führt nie zu einer FK-Constrain verletzung
+            //conn.createStatement().execute("PRAGMA foreign_keys = ON");
 
             String notenUpdate= "UPDATE Noten SET Fach='" + geaendertesFach ;
             notenUpdate += "', Note = " + geaenderdeNote;
