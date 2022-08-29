@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -35,6 +36,8 @@ public class Main {
         System.out.println(t5);
         notenHelper.updateTeilnehmerIn(t5);
 
+        ArrayList<TeilnehmerIn> alleTeilnehmerInnen = notenHelper.getAlleTeilnehmerInnen();
+        System.out.println("Alle TN:\n" + alleTeilnehmerInnen);
 
 
 

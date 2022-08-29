@@ -1,6 +1,7 @@
 package at.campus02;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class MyNotenOnlyDBHelper {
@@ -317,4 +318,29 @@ public class MyNotenOnlyDBHelper {
 
         return  tGefunden;
     }
+
+    public ArrayList<TeilnehmerIn> getAlleTeilnehmerInnen() {
+        ArrayList<Integer> teilInNrList =new ArrayList<Integer>();
+        try (Connection conn = DriverManager.getConnection(dbConnectionString)) {
+
+            String selAlleTeilnehmerIn = "SELECT TeilInNr FROM TeilnehmerInnen";
+            PreparedStatement pSelect = conn.prepareStatement(selAlleTeilnehmerIn);
+
+            ResultSet rs = pSelect.executeQuery();
+
+            while (rs.next()) {
+                teilInNrList.add(rs.getInt("TeilInNr"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        ArrayList<TeilnehmerIn> liste=new ArrayList<>();
+
+        for (int nr : teilInNrList) {
+            liste.add(getTeilnehmerIn(nr));
+        }
+
+        return liste;
+
+        }
 }
