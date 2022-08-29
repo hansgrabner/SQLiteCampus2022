@@ -193,6 +193,18 @@ public class MyNotenOnlyDBHelper {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
+        //Aufgaben
+        //1. UPDATE TeilnehmerInnen mit PrepardStatement
+        //2. DELETE Noten mit PreparedStatment
+        //3. INSERT TeilnehmerInnen mit PreparedStatement
+        //4. SELECT
+        //a. alle TN mit Bonus > ? --- PreparedStatement
+        //b. alle Noten von einer TeilnehmerIn  --- printNotenFuerTeilInNr(3) PreparedStatement, bei keine Noten - es gibt keine Noten
+
+
+
+
     }
 
 
