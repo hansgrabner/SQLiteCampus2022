@@ -29,6 +29,13 @@ public class MyNotenOnlyDBHelper {
         }
     }
 
+    //Aufgabe
+    public void deleteTeilnehmerIn(String dbName, int teilInNr){
+    // Fehler bei Foreign Key Constrain Verletzung
+        //TeilnehmerIn kann nicht gelöscht werden, weil es noch noten gibt
+    }
+
+
     public void insertNoten(
             String dbName,
             int teilNr,
