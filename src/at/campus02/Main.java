@@ -38,11 +38,17 @@ public class Main {
 
         ArrayList<TeilnehmerIn> alleTeilnehmerInnen = notenHelper.getAlleTeilnehmerInnen();
         System.out.println("Alle TN:\n" + alleTeilnehmerInnen);
+        notenHelper.deleteNoten(3);
 
 
 
 
         TeilnehmerIn suche = notenHelper.getTeilnehmerIn(6);
+
+        TeilnehmerIn tNeu =new TeilnehmerIn(-1, "Fatima","Brugger",170);
+        //notenHelper.insertTeilnehmerIn(tNeu);
+
+        System.out.println("Mehr als 100 Bonuspunkte: " + notenHelper.getAlleTeilnehmerInnenMitFilter(100));
 
 
        // notenHelper.createTableNoten("MeineNoten.db");

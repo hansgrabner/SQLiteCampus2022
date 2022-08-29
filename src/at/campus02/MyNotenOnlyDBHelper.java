@@ -195,13 +195,6 @@ public class MyNotenOnlyDBHelper {
             System.out.println(e.getMessage());
         }
 
-        //Aufgaben
-        //1. UPDATE TeilnehmerInnen mit PrepardStatement
-        //2. DELETE Noten mit PreparedStatment
-        //3. INSERT TeilnehmerInnen mit PreparedStatement
-        //4. SELECT
-        //a. alle TN mit Bonus > ? --- PreparedStatement
-        //b. alle Noten von einer TeilnehmerIn  --- printNotenFuerTeilInNr(3) PreparedStatement, bei keine Noten - es gibt keine Noten
 
 
 
@@ -275,19 +268,7 @@ public class MyNotenOnlyDBHelper {
         return  rowCount;
     }
 
-    public void selectAllteoten(String dbName, int teilNr){
-        String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
 
-        try (Connection conn = DriverManager.getConnection(url)) {
-
-            String selectAlleNoten= "SELECT * FROM NOTEN WHERE TeilInNr="+teilNr;
-            Statement notenSelectStmt = conn.createStatement();
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-    }
 
     public TeilnehmerIn getTeilnehmerIn(int teilInNr) {
         TeilnehmerIn tGefunden =new TeilnehmerIn();
@@ -343,4 +324,75 @@ public class MyNotenOnlyDBHelper {
         return liste;
 
         }
+
+    //Aufgaben
+    //1. UPDATE TeilnehmerInnen mit PrepardStatement
+    //2. DELETE Noten mit PreparedStatment
+    //3. INSERT TeilnehmerInnen mit PreparedStatement
+    //4. SELECT
+    //a. alle TN mit Bonus > ? --- PreparedStatement
+    //b. alle Noten von einer TeilnehmerIn  --- printNotenFuerTeilInNr(3) PreparedStatement, bei keine Noten - es gibt keine Noten
+
+    public void deleteNoten(int teilNr){
+
+        try (Connection conn = DriverManager.getConnection(dbConnectionString)) {
+
+            String deleteNote= "DELETE FROM NOTEN WHERE TeilInNr=?";
+            PreparedStatement deleteStmt  = conn.prepareStatement(deleteNote);
+            deleteStmt.setInt(1,teilNr);
+            deleteStmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public int insertTeilnehmerIn(TeilnehmerIn teilnehmerIn){
+        int rowCount=0;
+        try (Connection conn = DriverManager.getConnection(dbConnectionString)) {
+
+            String insertTeilnehmerIn = "INSERT INTO TeilnehmerInnen(Vorname,Nachname,Bonuspunkte) ";
+            insertTeilnehmerIn += "VALUES(?,?,?)";
+
+            PreparedStatement insStmt =  conn.prepareStatement(insertTeilnehmerIn);
+            insStmt.setString(1,teilnehmerIn.getVorname());
+            insStmt.setString(2,teilnehmerIn.getNachname());
+            insStmt.setDouble(3,teilnehmerIn.getBonuspunkte());
+
+            rowCount = insStmt.executeUpdate();
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return  rowCount;
+    }
+    public ArrayList<TeilnehmerIn> getAlleTeilnehmerInnenMitFilter(double minBonuspunkte) {
+        ArrayList<Integer> teilInNrList =new ArrayList<Integer>();
+        try (Connection conn = DriverManager.getConnection(dbConnectionString)) {
+
+            String selAlleTeilnehmerIn = "SELECT TeilInNr FROM TeilnehmerInnen WHERE Bonuspunkte > ?";
+
+            PreparedStatement pSelect = conn.prepareStatement(selAlleTeilnehmerIn);
+            pSelect.setDouble(1,minBonuspunkte);
+
+            ResultSet rs = pSelect.executeQuery();
+
+            while (rs.next()) {
+                teilInNrList.add(rs.getInt("TeilInNr"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        ArrayList<TeilnehmerIn> liste=new ArrayList<>();
+
+        for (int nr : teilInNrList) {
+            liste.add(getTeilnehmerIn(nr));
+        }
+
+        return liste;
+
+    }
 }
