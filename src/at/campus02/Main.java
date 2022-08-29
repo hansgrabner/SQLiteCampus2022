@@ -51,6 +51,7 @@ public class Main {
             System.out.println("TeilnehmerIn wurde geändert");
         }
         */
+        /*
          MyNotenOnlyDBHelper notenOnlyDBHelper =new MyNotenOnlyDBHelper();
         // notenOnlyDBHelper.insertNoten("MeineNoten.db",2,"Web Design",3);
         int rowsAffected = notenOnlyDBHelper.updateNoten("MeineNoten.db",1,"Web Design",2);
@@ -66,7 +67,7 @@ public class Main {
             System.out.println("Eintrag nicht gefunden");
         } else {
             System.out.println("note wurde gelöscht");
-        }
+        }*/
 
     }
 

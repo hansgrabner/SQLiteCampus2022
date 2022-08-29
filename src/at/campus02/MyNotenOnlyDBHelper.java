@@ -103,7 +103,7 @@ public class MyNotenOnlyDBHelper {
         String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
         try (Connection conn = DriverManager.getConnection(url)) {
 
-            String selNoten="SELECT t.TeilInNr, Vorname, Nachname, Fach, n.Note ";
+            String selNoten="SELECT t.TeilInNr, Vorname, Bonuspunkte, Nachname, Fach, n.Note ";
             selNoten += " FROM TeilnehmerInnen t LEFT JOIN Noten n";
             selNoten += " ON t.TeilInNr=n.TeilInNr";
 
@@ -112,10 +112,15 @@ public class MyNotenOnlyDBHelper {
 
             while(rs.next()) {
 
-                System.out.printf("%s %d %s %s %d\n",
+                System.out.printf("%s %d %s %f %s %d\n",
                         rs.getString("Vorname"), rs.getInt("TeilInNr"),
-                        rs.getString("Nachname"), rs.getString("Fach"),
+                        rs.getString("Nachname"),rs.getDouble("Bonuspunkte"), rs.getString("Fach"),
                         rs.getInt("Note"));
+
+                double bonuspunkte = rs.getDouble("Bonuspunkte");
+                if (rs.wasNull()){
+                    System.out.println("Die Bonuspunkte sind NULL");
+                }
             }
 
 
