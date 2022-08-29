@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Locale;
 
 public class MyNotenOnlyDBHelper {
     public void createTableNoten(String dbName){
@@ -33,6 +34,30 @@ public class MyNotenOnlyDBHelper {
     public void deleteTeilnehmerIn(String dbName, int teilInNr){
     // Fehler bei Foreign Key Constrain Verletzung
         //TeilnehmerIn kann nicht gelöscht werden, weil es noch noten gibt
+        String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
+        try (Connection conn = DriverManager.getConnection(url)) {
+
+            //BEI DML
+            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+
+            String delTN="DELETE FROM TeilnehmerInnen  ";
+            delTN += " Where TeilInNr=" + teilInNr;
+
+            Statement delTNStmt = conn.createStatement();
+
+            delTNStmt.executeUpdate(delTN); //bei DML-Statements (INSERT; UPDATE, DELETE) --> executeUpdate
+
+            System.out.println("TN gelöscht");
+
+
+
+        } catch (SQLException e) {
+            if (e.getMessage().toLowerCase(Locale.ROOT).contains("foreign key")){
+                System.out.println("TN kann nicht gelöscht werden, weil noch Noten vorhanden sind");
+            } else {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
 
