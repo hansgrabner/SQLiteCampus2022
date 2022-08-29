@@ -24,7 +24,8 @@ public class Main {
        // notenHelper.createTableNoten("MeineNoten.db");
         //notenHelper.insertNoten("MeineNoten.db",3,"DBP",3);
         //notenHelper.deleteTeilnehmerIn("MeineNoten.db",3);
-        notenHelper.selectTeilnehmerInnen("MeineNoten.db");
+       // notenHelper.selectTeilnehmerInnen("MeineNoten.db");
+        notenHelper.printAllNoten("MeineNoten.db");
         //myHelper.createDB("MeineNoten.db");
         //myHelper.createTableTeilnehmerInnen("MeineNoten.db"); // würde zu Fehler bei meherfacher Ausführung führen
        // myHelper.createTableNoten("MeineNoten.db");

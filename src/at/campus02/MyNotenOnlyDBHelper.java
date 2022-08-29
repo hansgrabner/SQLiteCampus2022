@@ -98,6 +98,32 @@ public class MyNotenOnlyDBHelper {
         }
     }
 
+    public void printAllNoten(String dbName) {
+    //TeilInNr, Fach, Note SELECT TeilNr, Fach, Note FROM Noten
+        String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
+        try (Connection conn = DriverManager.getConnection(url)) {
+
+            String selNoten="SELECT t.TeilInNr, Vorname, Nachname, Fach, n.Note ";
+            selNoten += " FROM TeilnehmerInnen t LEFT JOIN Noten n";
+            selNoten += " ON t.TeilInNr=n.TeilInNr";
+
+            Statement selStmt = conn.createStatement();
+            ResultSet rs =  selStmt.executeQuery(selNoten);
+
+            while(rs.next()) {
+
+                System.out.printf("%s %d %s %s %d\n",
+                        rs.getString("Vorname"), rs.getInt("TeilInNr"),
+                        rs.getString("Nachname"), rs.getString("Fach"),
+                        rs.getInt("Note"));
+            }
+
+
+
+        } catch (SQLException e) {
+
+        }
+    }
 
     public void insertNoten(
             String dbName,
