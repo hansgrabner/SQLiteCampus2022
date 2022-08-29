@@ -1,9 +1,6 @@
 package at.campus02;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Locale;
 
 public class MyNotenOnlyDBHelper {
@@ -57,6 +54,47 @@ public class MyNotenOnlyDBHelper {
             } else {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    public void selectTeilnehmerInnen(String dbName){
+
+        String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
+        try (Connection conn = DriverManager.getConnection(url)) {
+
+
+            String selTN="SELECT TeilInNr, Vorname, Nachname, Bonuspunkte ";
+            selTN += " FROM TeilnehmerInnen";
+
+            Statement selStmt = conn.createStatement();
+            ResultSet rs =  selStmt.executeQuery(selTN);
+
+            /*
+            rs.next();
+            //3	Karolina	Wasalska	20
+            System.out.printf("%d %s %s %f",
+                    rs.getInt("TeilInNr"), rs.getString("Vorname"),
+                    rs.getString("Nachname"),rs.getDouble("Bonuspunkte"));
+
+             */
+            //4	Vanja	Zivanic	40
+            //5	Mayssa	Alnawaqil	50
+
+            //Beispiel für printf
+
+            System.out.printf("%s das ist ein Text %d eine Zahl","Hello",17);
+
+            while(rs.next()) {
+
+                System.out.printf("%d %s %s %f\n",
+                        rs.getInt("TeilInNr"), rs.getString("Vorname"),
+                        rs.getString("Nachname"), rs.getDouble("Bonuspunkte"));
+            }
+
+
+
+        } catch (SQLException e) {
+
         }
     }
 
