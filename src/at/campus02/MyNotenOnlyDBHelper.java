@@ -121,6 +121,11 @@ public class MyNotenOnlyDBHelper {
                 if (rs.wasNull()){
                     System.out.println("Die Bonuspunkte sind NULL");
                 }
+
+                int note = rs.getInt("Note");
+                if (rs.wasNull()){
+                    System.out.println("Die Note ist NULL");
+                }
             }
 
 
@@ -157,6 +162,39 @@ public class MyNotenOnlyDBHelper {
             System.out.println(e.getMessage());
         }
     }
+
+
+    public void insertNotenPrepared(
+            String dbName,
+            int teilNr,
+            String fach,
+            int note){
+        String url = "jdbc:sqlite:C:\\LVs\\DBP2022\\db\\" +dbName;
+        try (Connection conn = DriverManager.getConnection(url)) {
+
+
+            //BEI DML
+            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+
+            String insertNoten="INSERT INTO Noten(TeilInNr, Fach, Note) VALUES(?,?,?)";
+
+
+            PreparedStatement notenInsStmt = conn.prepareStatement(insertNoten);
+            notenInsStmt.setInt(1,teilNr);
+            notenInsStmt.setString(2,fach); //drop table MeineKunden
+            notenInsStmt.setInt(3,note);
+
+            notenInsStmt.executeUpdate(); //bei DML-Statements (INSERT; UPDATE, DELETE) --> executeUpdate
+
+            System.out.println("Note hinzugefügt");
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     public int updateNoten(String dbName, int notenId, String geaendertesFach,
             int geaenderdeNote){
