@@ -26,6 +26,8 @@ public class Main {
         notenHelper.getAlleTeilnehmerInnenNotenDurchschnittBesserAls25();
         notenHelper.fehlerBericht();
 
+        notenHelper.addSGLNote();
+
         TeilnehmerIn tKarolina =new TeilnehmerIn(-99,"Karolina","Wasalska",200);
         String action = notenHelper.updateOrInsertTeilnehmerIn(tKarolina);
         System.out.println(action);

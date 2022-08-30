@@ -562,4 +562,11 @@ public class MyNotenOnlyDBHelper {
 
 
     }
+
+    public void addSGLNote(){
+        ArrayList<TeilnehmerIn> meineTeilnehmerInnen = getAlleTeilnehmerInnen();
+        for (TeilnehmerIn t: meineTeilnehmerInnen) {
+            insertNoten("MeineNoten.db",t.getTeilInNr(),"SGL",1);
+        }
+    }
 }
