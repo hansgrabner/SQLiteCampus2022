@@ -529,9 +529,32 @@ public class MyNotenOnlyDBHelper {
             while (rs.next()) {
                 double durchschnitt = rs.getDouble("Durchschnitt");
                 if (durchschnitt<=2.5){
-                    System.out.printf("Vorname: %s AVG Note %d",rs.getString("Vorname"),rs.getDouble("Durchschnitt"));
+                    System.out.printf("Vorname: %s AVG Note %f",rs.getString("Vorname"),rs.getDouble("Durchschnitt"));
                 }
 
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+    }
+
+    public void fehlerBericht() {
+        ArrayList<Integer> teilInNrList =new ArrayList<Integer>();
+        try (Connection conn = DriverManager.getConnection(dbConnectionString)) {
+
+            String selAlleTeilnehmerIn = "SELECT Vorname, Nachname, COUNT(NOTE) AS Anzahl\n" +
+                    "FROM TeilnehmerInnen t LEFT JOIN Noten n on t.TeilInNr = n.TeilInNr\n" +
+                    "--WHERE Vorname LIKE '%Van%'\n" +
+                    "GROUP BY Vorname, Nachname\n" +
+                    "HAVING COUNT(Note)<2";
+            PreparedStatement pSelect = conn.prepareStatement(selAlleTeilnehmerIn);
+
+            ResultSet rs = pSelect.executeQuery();
+
+            while (rs.next()) {
+                 System.out.printf("Vorname: %s Anzahl %d",rs.getString("Vorname"),rs.getInt("Anzahl"));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

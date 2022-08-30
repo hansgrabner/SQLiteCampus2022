@@ -23,6 +23,9 @@ public class Main {
 
         MyNotenOnlyDBHelper notenHelper=new MyNotenOnlyDBHelper();
 
+        notenHelper.getAlleTeilnehmerInnenNotenDurchschnittBesserAls25();
+        notenHelper.fehlerBericht();
+
         TeilnehmerIn tKarolina =new TeilnehmerIn(-99,"Karolina","Wasalska",200);
         String action = notenHelper.updateOrInsertTeilnehmerIn(tKarolina);
         System.out.println(action);
