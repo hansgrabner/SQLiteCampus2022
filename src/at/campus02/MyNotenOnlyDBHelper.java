@@ -597,13 +597,51 @@ public class MyNotenOnlyDBHelper {
                conn.rollback();
            }
 
-
-
-
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public void printMetaDataFuerTN(){
+
+
+        try (Connection conn = DriverManager.getConnection(dbConnectionString)) {
+
+
+            String selTN="SELECT * ";
+            selTN += " FROM TeilnehmerInnen";
+
+            Statement selStmt = conn.createStatement();
+            ResultSet rs =  selStmt.executeQuery(selTN);
+
+            ResultSetMetaData meta = rs.getMetaData();
+
+            int numerics = 0;
+
+            for ( int i = 1; i <= meta.getColumnCount(); i++ )
+            {
+                System.out.printf( "%-20s %-20s%n", meta.getColumnLabel( i ),
+                        meta.getColumnTypeName( i ) );
+
+                //Vorname              String
+                //Nachname             String
+
+                //Vorname String
+                //NACHNAME sTRING
+                //Bonsupunkte int
+
+                if ( meta.isSigned( i ) )
+                    numerics++;
+            }
+
+            System.out.println();
+            System.out.println( "Spalten: " + meta.getColumnCount() +
+                    ", Numerisch: " + numerics );
+
+
+        } catch (SQLException e) {
+
+        }
     }
 }
