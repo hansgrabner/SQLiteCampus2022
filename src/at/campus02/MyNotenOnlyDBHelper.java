@@ -369,6 +369,10 @@ public class MyNotenOnlyDBHelper {
         }
         return  rowCount;
     }
+
+
+
+
     public ArrayList<TeilnehmerIn> getAlleTeilnehmerInnenMitFilter(double minBonuspunkte) {
         ArrayList<Integer> teilInNrList =new ArrayList<Integer>();
         try (Connection conn = DriverManager.getConnection(dbConnectionString)) {
@@ -421,6 +425,58 @@ public class MyNotenOnlyDBHelper {
 
         return noten;
 
+    }
+
+
+
+    public String updateOrInsertTeilnehmerIn(TeilnehmerIn teilnehmerIn){
+
+        String action="";
+        try (Connection conn = DriverManager.getConnection(dbConnectionString)) {
+
+            int teilInNr=getTeilInNr(teilnehmerIn.getVorname(),teilnehmerIn.getNachname());
+            if (teilInNr>-1){
+                //Update
+                teilnehmerIn.setTeilInNr(teilInNr);
+                updateTeilnehmerIn(teilnehmerIn);
+                action="wurde geändert";
+            } else{
+                //Insert
+                insertTeilnehmerIn(teilnehmerIn);
+                action="wurde hinzugefügt";
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+      return  action;
+
+    }
+
+    public int getTeilInNr(String vorname, String nachname) {
+
+       int teilInNr=-1;
+
+        try (Connection conn = DriverManager.getConnection(dbConnectionString)) {
+
+            String selTeilnehmerIn = "SELECT TeilInNr FROM TeilnehmerInnen WHERE Vorname=? AND Nachname = ?";
+            PreparedStatement pSelect = conn.prepareStatement(selTeilnehmerIn);
+            pSelect.setString(1,vorname);
+            pSelect.setString(2,nachname);
+            ResultSet rs=  pSelect.executeQuery();
+
+            if (rs.next()){
+                teilInNr = rs.getInt("TeilInNr");
+            }
+            else {
+                teilInNr= -1;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return  teilInNr;
     }
 
     //b. alle Noten von einer TeilnehmerIn  --- printNotenFuerTeilInNr(3) PreparedStatement, bei keine Noten - es gibt keine Noten

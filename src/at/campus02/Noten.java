@@ -3,6 +3,7 @@ package at.campus02;
 public class Noten {
     private int NotenId;
     private int TeilInNr;
+    private TeilnehmerIn teilnehmerIn;
     private String Fach;
     private int Note;
 
