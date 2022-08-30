@@ -27,7 +27,7 @@ public class Main {
         String action = notenHelper.updateOrInsertTeilnehmerIn(tKarolina);
         System.out.println(action);
 
-        TeilnehmerIn tHans =new TeilnehmerIn(-99,"Hans","Grabner",150);
+        TeilnehmerIn tHans =new TeilnehmerIn(-99,"Johann Hans","Grabner",150);
         action = notenHelper.updateOrInsertTeilnehmerIn(tHans);
         System.out.println(action);
 
@@ -233,4 +233,6 @@ public class Main {
         //finally conn.close();
         //connection
     }
+
+
 }

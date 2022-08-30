@@ -362,6 +362,15 @@ public class MyNotenOnlyDBHelper {
 
             rowCount = insStmt.executeUpdate();
 
+            String sqlTextRowId = "SELECT last_insert_rowid() as rowid;";
+            Statement stmt = conn.createStatement();
+            ResultSet rsRowId =  stmt.executeQuery(sqlTextRowId);
+            rsRowId.next();
+            int rowId= rsRowId.getInt("rowid");
+            rsRowId.close();
+            stmt.close();
+
+           teilnehmerIn.setTeilInNr(rowId);
 
 
         } catch (SQLException e) {
@@ -479,7 +488,55 @@ public class MyNotenOnlyDBHelper {
         return  teilInNr;
     }
 
+    public int getLastInsertRowid()
+    {
+        int lastId=0;
+        String sqlText = "SELECT last_insert_rowid() as rowid;";
+        try (Connection conn = DriverManager.getConnection(dbConnectionString);
+             PreparedStatement stmt = conn.prepareStatement(sqlText))
+        {
+
+            ResultSet rs = null;
+
+            rs = stmt.executeQuery(sqlText);
+            rs.next();
+            lastId=rs.getInt("rowid");
+            rs.close();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return  lastId;
+    }
+
     //b. alle Noten von einer TeilnehmerIn  --- printNotenFuerTeilInNr(3) PreparedStatement, bei keine Noten - es gibt keine Noten
     //ArrayList<Note> getAlleNotenFuerTN(4)
     //1. neue Klasse Noten
+
+    public void getAlleTeilnehmerInnenNotenDurchschnittBesserAls25() {
+        ArrayList<Integer> teilInNrList =new ArrayList<Integer>();
+        try (Connection conn = DriverManager.getConnection(dbConnectionString)) {
+
+            String selAlleTeilnehmerIn = "SELECT Vorname, Nachname, AVG(NOTE) AS Durchschnitt\n" +
+                    "FROM TeilnehmerInnen t LEFT JOIN Noten n on t.TeilInNr = n.TeilInNr\n" +
+                    "GROUP BY Vorname, Nachname\n" +
+                    "HAVING AVG(NOTE)<=2.5";
+            PreparedStatement pSelect = conn.prepareStatement(selAlleTeilnehmerIn);
+
+            ResultSet rs = pSelect.executeQuery();
+
+            while (rs.next()) {
+                double durchschnitt = rs.getDouble("Durchschnitt");
+                if (durchschnitt<=2.5){
+                    System.out.printf("Vorname: %s AVG Note %d",rs.getString("Vorname"),rs.getDouble("Durchschnitt"));
+                }
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+    }
 }
