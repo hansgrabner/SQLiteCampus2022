@@ -22,6 +22,7 @@ public class Main {
         DBNotenHelper myHelper =new DBNotenHelper();
 
         MyNotenOnlyDBHelper notenHelper=new MyNotenOnlyDBHelper();
+        notenHelper.updateMitTransationen(3,99);
 
         notenHelper.getAlleTeilnehmerInnenNotenDurchschnittBesserAls25();
         notenHelper.fehlerBericht();

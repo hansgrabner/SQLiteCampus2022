@@ -569,4 +569,41 @@ public class MyNotenOnlyDBHelper {
             insertNoten("MeineNoten.db",t.getTeilInNr(),"SGL",1);
         }
     }
+
+    public void updateMitTransationen(int teilInNrVon,int  teilInNrZu){
+        int rowCount=0;
+        try (Connection conn = DriverManager.getConnection(dbConnectionString)) {
+
+            String updateTeilnehmerIn1 = "UPDATE TeilnehmerInnen SET ";
+            updateTeilnehmerIn1 += " Bonuspunkte=Bonuspunkte-50  WHERE TeilInNr=?";
+
+            String updateTeilnehmerIn2 = "UPDATE TeilnehmerInnen SET ";
+            updateTeilnehmerIn2 += " Bonuspunkte=Bonuspunkte+50  WHERE TeilInNr=?";
+
+
+            PreparedStatement updStmt1 =  conn.prepareStatement(updateTeilnehmerIn1);
+            updStmt1.setInt(1,teilInNrVon);
+            PreparedStatement updStmt2 =  conn.prepareStatement(updateTeilnehmerIn2);
+            updStmt2.setInt(1,teilInNrZu);
+
+            conn.setAutoCommit(false); //executeUpdate werden nicht automatisch abgeschlossen
+
+           int affect1 = updStmt1.executeUpdate(); //die Transaktion wird per Default abgeschlossen
+           int affect2 = updStmt2.executeUpdate();
+
+           if (affect1==1 && affect2==1){
+               conn.commit(); //Speichert alle Änderungen "endgültig in der DB ab
+           } else {
+               conn.rollback();
+           }
+
+
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
 }
