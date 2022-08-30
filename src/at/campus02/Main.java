@@ -23,6 +23,10 @@ public class Main {
 
         MyNotenOnlyDBHelper notenHelper=new MyNotenOnlyDBHelper();
 
+        TeilnehmerIn tDemo=new TeilnehmerIn(-1,"Demo 2","Test",100);
+        notenHelper.insertTeilnehmerIn(tDemo);
+        System.out.printf("Die Nummer für den neuen TN ist: %d", tDemo.getTeilInNr());
+
         notenHelper.printMetaDataFuerTN();
 
 
