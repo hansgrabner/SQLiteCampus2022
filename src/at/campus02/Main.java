@@ -42,6 +42,18 @@ public class Main {
         k.setKDNR(7);
         db.insertRechnung(r,k);
 
+        /*
+        ArrayList<Rechnungen> rechnungFuerK=new ArrayList<Rechnungen>();
+        rechnungFuerK.add(r);
+        k.setRechnungen(rechnungFuerK);
+
+        r.setDatum("09.02.2022");
+        db.updateRechnungen(r);
+
+        //db.loescheRechnung(r);
+*/
+
+
         ArrayList<Rechnungen> rechnungen =new ArrayList<Rechnungen>();
         Rechnungen r1=new Rechnungen();
         r1.setGesamtbetrag(200);
@@ -73,6 +85,10 @@ public class Main {
 
         db.loescheAlleRechnungenUndDanachDenKunden(kDelete);
 
+        kDelete=null;
+
         db.printKundenMetadata();
+
+
     }
 }

@@ -1,5 +1,8 @@
 package at.campus02;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Kunden {
     public String toString() {
         return "Kunden{" +
@@ -10,6 +13,16 @@ public class Kunden {
                 ", Bonuspunkte=" + Bonuspunkte +
                 '}';
     }
+
+    public ArrayList<Rechnungen> getRechnungen() {
+        return rechnungen;
+    }
+
+    public void setRechnungen(ArrayList<Rechnungen> rechnungen) {
+        this.rechnungen = rechnungen;
+    }
+
+    private ArrayList<Rechnungen> rechnungen=new ArrayList<Rechnungen>();
 
     public int getKDNR() {
         return KDNR;
