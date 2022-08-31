@@ -89,6 +89,12 @@ public class Main {
 
         db.printKundenMetadata();
 
+        //20 Minuten pro Aufgabe
+        //180 Minuten gesamt - 30 Minuten (Fehlersuche, Debug, ..)
+        // 7 Aufgaben
+        //CREATE, INSERT, UPDATE, SELECT V1, SELECT v2, Metadaten, Abhängigkeiten (Kunden + Rechnung, Alle Rechnugen zu einem Kunden
+
+        //12:00 Uhr Auflösung
 
     }
 }
